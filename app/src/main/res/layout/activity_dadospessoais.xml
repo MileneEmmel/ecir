@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C9FFFFFF">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="#0B274E"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="66dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/voltar"
+            android:src="@drawable/seta"
+            android:scaleType="fitCenter"/>
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/dados_pessoais"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="46dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="90dp"
+            android:contentDescription="@string/pesquisar"
+            android:background="@android:color/transparent"
+            android:src="@drawable/editar"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+
+    <!-- Conteúdo principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="0dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Imagem de Perfil -->
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/profile_image_description"
+            android:src="@drawable/avatar" />
+
+        <!-- Nº de inscrição -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="username"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_num_inscricao"
+            android:inputType="number"
+            android:padding="16dp" />
+
+        <!-- Nome -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="name"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_nome"
+            android:inputType="textPersonName"
+            android:padding="16dp" />
+
+        <!-- Naturalidade -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="addressLocality"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_naturalidade"
+            android:inputType="text"
+            android:padding="16dp" />
+
+        <!-- Nacionalidade -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="countryName"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_nacionalidade"
+            android:inputType="text"
+            android:padding="16dp" />
+
+        <!-- Data de nascimento -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="birthday"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_data_nascimento"
+            android:inputType="date"
+            android:padding="16dp" />
+
+        <!-- OM de Emissão -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:autofillHints="organization"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/label_om_emissao"
+            android:inputType="text"
+            android:padding="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

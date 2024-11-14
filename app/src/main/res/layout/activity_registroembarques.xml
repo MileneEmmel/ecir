@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C9FFFFFF">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#0B274E"
+        android:padding="10dp">
+
+        <!-- Ícone de voltar -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/voltar"
+            android:src="@drawable/seta"
+            android:scaleType="fitCenter" />
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/registro_de_embarques"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp" />
+
+        <!-- Ícone de lupa -->
+        <ImageView
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/lupa"
+            android:contentDescription="@string/pesquisar"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- RecyclerView para a lista de embarques -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEmbarques"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/novoButton"
+        android:padding="8dp" />
+
+    <!-- Estado vazio -->
+    <LinearLayout
+        android:id="@+id/emptyStateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/alerta"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/n_o_h_embarques_registrados"
+            android:textSize="20sp"
+            android:textColor="#0B274E"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Botão "Novo" flutuante -->
+    <ImageButton
+        android:id="@+id/novoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_style"
+        android:src="@drawable/ic_novo"
+        android:contentDescription="@string/novo"
+        app:tint="#D29E7E" />
+
+</RelativeLayout>

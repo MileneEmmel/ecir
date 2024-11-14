@@ -1,0 +1,5 @@
+<!-- button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/azul" />  <!-- Cor azul como fundo -->
+    <corners android:radius="0dp" />  <!-- Sem borda arredondada -->
+</shape>

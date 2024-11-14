@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="calendarButton" type="id" />
+    <item name="topMenuButton" type="id" />
+    <item name="logoImage" type="id" />
+    <item name="personalDataButton" type="id" />
+    <item name="documentsButton" type="id" />
+    <item name="boardingButton" type="id" />
+    <item name="toolbar" type="id" />
+    <item name="recyclerViewCertificados" type="id" />
+    <item name="recyclerViewEmbarques" type="id" />
+    <item name="emptyStateLayout" type="id" />
+</resources>
