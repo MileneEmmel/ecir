@@ -1,30 +1,26 @@
 package com.example.ecir;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.ecir.database.DatabaseHelper;
 
 public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
-
     private EditText numInscricao, nomeEmbarcacao, numeroInscricao, arqueacao, localEmbarque, dataEmbarque, categoria, funcao, tipoNavegacao;
     private Button btnSalvarCertificado;
-    private ImageButton backButton;
-    private List<Embarque> embarqueList = new ArrayList<>();
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novoregistroembarque);
 
-        // Referências para os elementos do layout
+        databaseHelper = new DatabaseHelper(this);
+
         numInscricao = findViewById(R.id.numInscricao);
         nomeEmbarcacao = findViewById(R.id.nomeEmbarcacao);
         numeroInscricao = findViewById(R.id.numeroInscricao);
@@ -35,48 +31,35 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
         funcao = findViewById(R.id.funcao);
         tipoNavegacao = findViewById(R.id.tipoNavegacao);
 
-        // Configuração do botão de voltar
-        backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());  // Volta para a atividade anterior
-
-        // Configuração do botão de salvar
         btnSalvarCertificado = findViewById(R.id.btnSalvarCertificado);
-        btnSalvarCertificado.setOnClickListener(v -> salvarCertificado());  // Chama o método para salvar
+        btnSalvarCertificado.setOnClickListener(v -> salvarCertificado());
     }
 
     private void salvarCertificado() {
-        // Obtém os valores dos campos
-        String inscricao = numInscricao.getText().toString();
-        String nome = nomeEmbarcacao.getText().toString();
-        String numero = numeroInscricao.getText().toString();
-        String arqueacaoValor = arqueacao.getText().toString();
-        String local = localEmbarque.getText().toString();
-        String data = dataEmbarque.getText().toString();
-        String categoriaValor = categoria.getText().toString();
-        String funcaoValor = funcao.getText().toString();
-        String tipo = tipoNavegacao.getText().toString();
+        String inscricao = numInscricao.getText().toString().trim();
+        String nome = nomeEmbarcacao.getText().toString().trim();
+        String numero = numeroInscricao.getText().toString().trim();
+        String arqueacaoValor = arqueacao.getText().toString().trim();
+        String local = localEmbarque.getText().toString().trim();
+        String data = dataEmbarque.getText().toString().trim();
+        String categoriaValor = categoria.getText().toString().trim();
+        String funcaoValor = funcao.getText().toString().trim();
+        String tipo = tipoNavegacao.getText().toString().trim();
 
-        // Exemplo de validação simples
         if (inscricao.isEmpty() || nome.isEmpty() || numero.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Embarque embarque = new Embarque(0, inscricao, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor, tipo);
+
+        boolean isSaved = databaseHelper.addEmbarque(embarque); // Método modificado para retornar boolean
+
+        if (isSaved) {
+            Toast.makeText(this, "Registro salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            finish(); // Volta para a tela anterior
         } else {
-            // Criar novo objeto Embarque e adicionar à lista
-            Embarque embarque = new Embarque(inscricao, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor, tipo);
-            embarqueList.add(embarque);  // Adiciona à lista de embarques
-
-            // Confirmação para o usuário
-            Toast.makeText(NovoRegistroEmbarqueActivity.this, "Embarque salvo com sucesso!", Toast.LENGTH_SHORT).show();
-
-            // Limpar campos após salvar
-            numInscricao.setText("");
-            nomeEmbarcacao.setText("");
-            numeroInscricao.setText("");
-            arqueacao.setText("");
-            localEmbarque.setText("");
-            dataEmbarque.setText("");
-            categoria.setText("");
-            funcao.setText("");
-            tipoNavegacao.setText("");
+            Toast.makeText(this, "Erro ao salvar registro.", Toast.LENGTH_SHORT).show();
         }
     }
 }

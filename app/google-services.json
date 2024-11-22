@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "243308276601",
+    "project_id": "ecir-4b77c",
+    "storage_bucket": "ecir-4b77c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243308276601:android:89d9ded5b22e54902c5da8",
+        "android_client_info": {
+          "package_name": "com.example.ecir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtGAdFz9LYAfad_oM5IxbDrcfbdP0I3uU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

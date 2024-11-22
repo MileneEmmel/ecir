@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C9FFFFFF">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="#0B274E"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <!-- Ícone de voltar -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="66dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/voltar"
+            android:src="@drawable/seta"
+            android:scaleType="fitCenter" />
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/detalhes_embarque"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp" />
+    </LinearLayout>
+
+    <!-- Conteúdo principal -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="70dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Nº de inscrição -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/num_inscricao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/numInscricaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="123456"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Nome Embarcação -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nome_embarcacao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/nomeEmbarcacaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nome da Embarcação"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Nº de Inscrição -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/numero_inscricao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/numeroInscricaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="001234"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Arqueação -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/arqueacao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/arqueacaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Arqueação Detalhe"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Local de Embarque -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/local_embarque"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/localEmbarqueDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Local do Embarque"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Data de Embarque -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_embarque"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/dataEmbarqueDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="01/01/2024"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Categoria -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/categoria"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/categoriaDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Categoria Detalhe"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Função -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/funcao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/funcaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Função Detalhe"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Tipo de Navegação -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo_navegacao"
+                android:textSize="18sp"
+                android:textColor="#0B274E" />
+
+            <TextView
+                android:id="@+id/tipoNavegacaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Tipo de Navegação Detalhe"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

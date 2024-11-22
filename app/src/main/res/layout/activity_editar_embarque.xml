@@ -1,0 +1,161 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C9FFFFFF">
+
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="#0B274E"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <!-- Ícone de voltar -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="66dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/voltar"
+            android:src="@drawable/seta"
+            android:scaleType="fitCenter" />
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/editar_registro"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp" />
+
+    </LinearLayout>
+
+    <!-- Conteúdo principal -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Nº de inscrição -->
+        <EditText
+            android:id="@+id/editNumInscricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/nome_registro"
+            android:inputType="number"
+            android:padding="14dp" />
+
+        <!-- Nome Embarcação -->
+        <EditText
+            android:id="@+id/editNomeEmbarcacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/nome_embarcacao"
+            android:inputType="textPersonName"
+            android:padding="14dp" />
+
+        <!-- Nº de Inscrição -->
+        <EditText
+            android:id="@+id/editNumeroInscricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/numero_inscricao"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Arqueação -->
+        <EditText
+            android:id="@+id/editArqueacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/arqueacao"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Local de Embarque -->
+        <EditText
+            android:id="@+id/editLocalEmbarque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/local_embarque"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Data de Embarque -->
+        <EditText
+            android:id="@+id/editDataEmbarque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/data_embarque"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Categoria -->
+        <EditText
+            android:id="@+id/editCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/categoria"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Função -->
+        <EditText
+            android:id="@+id/editFuncao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/funcao"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Tipo de Navegação -->
+        <EditText
+            android:id="@+id/editTipoNavegacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corners"
+            android:hint="@string/tipo_navegacao"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <!-- Botão Salvar -->
+        <Button
+            android:id="@+id/btnEditarCertificado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Salvar Alterações"
+            android:backgroundTint="#0B274E"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

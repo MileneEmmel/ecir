@@ -48,4 +48,7 @@
     <string name="registro_de_embarques">Registro de Embarques</string>
     <string name="editar_embarque" />
     <string name="deletar_embarque" />
+    <string name="editar_registro">Editar Registro</string>
+    <string name="detalhes_embarque">"Detalhes "</string>
+    <string name="num_inscricao">Número de inscrição</string>
 </resources>
