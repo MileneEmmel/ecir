@@ -10,39 +10,46 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
         android:background="#0B274E"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical">
 
         <!-- Ícone de voltar -->
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/voltar"
             android:src="@drawable/seta"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerInside"
+            android:padding="4dp" />
 
-        <!-- Título -->
+        <!-- Título centralizado -->
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/registro_de_embarques"
+            android:text="Registro de embarques"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:textSize="23sp" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center" />
 
         <!-- Ícone de lupa -->
-        <ImageView
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:src="@drawable/lupa"
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
             android:contentDescription="@string/pesquisar"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp" />
+            android:src="@drawable/lupa"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerInside"
+            android:padding="4dp" />
 
     </LinearLayout>
 
@@ -91,6 +98,7 @@
         android:background="@drawable/button_style"
         android:src="@drawable/ic_novo"
         android:contentDescription="@string/novo"
+        android:padding="15dp"
         app:tint="#D29E7E" />
 
 </RelativeLayout>

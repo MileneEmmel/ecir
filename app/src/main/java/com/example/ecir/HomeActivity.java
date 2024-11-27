@@ -1,31 +1,44 @@
 package com.example.ecir;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Inicializando os botões
-        Button personalDataButton = findViewById(R.id.personalDataButton);
-        Button documentsButton = findViewById(R.id.documentsButton);
-        Button boardingButton = findViewById(R.id.boardingButton);
-        Button calendarButton = findViewById(R.id.calendarButton);
+        // Inicializando os LinearLayouts como botões
+        LinearLayout personalDataButton = findViewById(R.id.personalDataButton);
+        LinearLayout documentsButton = findViewById(R.id.documentsButton);
+        LinearLayout boardingButton = findViewById(R.id.boardingButton);
+        LinearLayout calendarButton = findViewById(R.id.calendarButton);
         ImageButton topMenuButton = findViewById(R.id.topMenuButton);
 
-        // Definindo as ações dos botões
-        personalDataButton.setOnClickListener(v -> openPersonalDataActivity());
-        documentsButton.setOnClickListener(v -> openDocumentsActivity());
-        boardingButton.setOnClickListener(v -> openBoardingActivity());
-        calendarButton.setOnClickListener(v -> openCalendarActivity());
-        topMenuButton.setOnClickListener(v -> openSettingsActivity());
+        // Verificando se os botões foram encontrados no layout
+        if (personalDataButton != null) {
+            personalDataButton.setOnClickListener(v -> openPersonalDataActivity());
+        }
+        if (documentsButton != null) {
+            documentsButton.setOnClickListener(v -> openDocumentsActivity());
+        }
+        if (boardingButton != null) {
+            boardingButton.setOnClickListener(v -> openBoardingActivity());
+        }
+        if (calendarButton != null) {
+            calendarButton.setOnClickListener(v -> openCalendarActivity());
+        }
+        if (topMenuButton != null) {
+            topMenuButton.setOnClickListener(v -> openSettingsActivity());
+        }
     }
 
     private void openPersonalDataActivity() {
@@ -57,4 +70,5 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
 }

@@ -43,6 +43,10 @@
         <activity android:name=".DetalhesEmbarqueActivity" />
         <activity android:name=".EditarEmbarqueActivity" />
         <activity android:name=".ItemEmbarqueAdapter" />
+        <activity android:name=".DadosPessoais" />
+
+
+
 
 
 

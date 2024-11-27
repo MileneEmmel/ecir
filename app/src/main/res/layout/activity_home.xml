@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -5,20 +6,14 @@
     android:background="@color/azul">
 
     <!-- Top Menu -->
-
-    <!-- Logo -->
     <ImageButton
         android:id="@+id/topMenuButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_margin="10dp"
         android:background="@android:color/transparent"
-        android:contentDescription="Menu"
+        android:contentDescription="@string/menu"
         android:src="@drawable/opcoes" />
 
     <ImageView
@@ -46,14 +41,29 @@
             android:gravity="center">
 
             <!-- Button 1 -->
-            <Button
+            <LinearLayout
                 android:id="@+id/personalDataButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/dados_pessoais"
+                android:orientation="vertical"
+                android:gravity="center"
                 android:backgroundTint="#1A2A4E"
-                android:drawableLeft="@drawable/icons8_identidade_50__1_" /> <!-- Fundo azul sem bordas -->
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/icons8_identidade_50__1_" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dados_pessoais"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -61,14 +71,29 @@
                 android:background="@color/dourado" />
 
             <!-- Button 2 -->
-            <Button
+            <LinearLayout
                 android:id="@+id/documentsButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/certificados_e_documentos"
-                android:drawableLeft="@drawable/icons8_documentos_48"
-                android:backgroundTint="#1A2A4E" /> <!-- Fundo azul sem bordas -->
+                android:orientation="vertical"
+                android:gravity="center"
+                android:backgroundTint="#1A2A4E"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/icons8_documentos_48" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/certificados_e_documentos"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:gravity="center" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Divider -->
@@ -85,14 +110,29 @@
             android:gravity="center">
 
             <!-- Button 3 -->
-            <Button
+            <LinearLayout
                 android:id="@+id/boardingButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Registro Embarques"
-                android:drawableLeft="@drawable/icons8_passaporte_50"
-                android:backgroundTint="#1A2A4E" /> <!-- Fundo azul sem bordas -->
+                android:orientation="vertical"
+                android:gravity="center"
+                android:backgroundTint="#1A2A4E"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/icons8_passaporte_50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Registro Embarques"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:gravity="center" />
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -100,15 +140,29 @@
                 android:background="@color/dourado" />
 
             <!-- Button 4 -->
-            <Button
+            <LinearLayout
                 android:id="@+id/calendarButton"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Calendário Embarques"
-                android:drawableLeft="@drawable/icons8_calend_rio_32"
-                android:backgroundTint="#1A2A4E" /> <!-- Fundo azul sem bordas -->
-        </LinearLayout>
+                android:orientation="vertical"
+                android:gravity="center"
+                android:backgroundTint="#1A2A4E"
+                android:padding="8dp">
 
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/icons8_calend_rio_32" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calendário Embarques"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +7,14 @@
 
     <!-- Toolbar -->
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="#0B274E"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:gravity="center_vertical">
 
         <!-- Ícone de voltar -->
         <ImageButton
@@ -23,15 +24,20 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/voltar"
             android:src="@drawable/seta"
-            android:scaleType="fitCenter"/>
+            android:scaleType="centerInside"
+            android:padding="4dp" />
 
-        <!-- Título -->
+        <!-- Título centralizado -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Certificados e Documentos"
+            android:layout_weight="1"
+            android:text="Certificados"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"/>
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center" />
 
         <!-- Ícone de lupa -->
         <ImageButton
@@ -40,17 +46,31 @@
             android:layout_height="50dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/pesquisar"
-            android:scaleType="fitCenter"
             android:src="@drawable/lupa"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:scaleType="centerInside"
+            android:padding="4dp" />
+
     </LinearLayout>
 
+    <!-- RecyclerView para a lista de embarques -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEmbarques"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/novoButton"
+        android:padding="8dp" />
+
+    <!-- Estado vazio -->
     <LinearLayout
+        android:id="@+id/emptyStateLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="50dp"
@@ -61,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Não há certificados"
+            android:text="@string/n_o_h_embarques_registrados"
             android:textSize="20sp"
             android:textColor="#0B274E"
             android:textStyle="bold" />
@@ -78,6 +98,7 @@
         android:background="@drawable/button_style"
         android:src="@drawable/ic_novo"
         android:contentDescription="@string/novo"
-        android:padding="20dp"
-        android:tint="#D29E7E" />
+        android:padding="15dp"
+        app:tint="#D29E7E" />
+
 </RelativeLayout>

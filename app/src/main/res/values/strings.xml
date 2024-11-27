@@ -51,4 +51,7 @@
     <string name="editar_registro">Editar Registro</string>
     <string name="detalhes_embarque">"Detalhes "</string>
     <string name="num_inscricao">Número de inscrição</string>
+    <string name="nome_do_certificado">Nome do Certificado</string>
+    <string name="ver">Ver</string>
+    <string name="menu">menu</string>
 </resources>

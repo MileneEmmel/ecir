@@ -34,20 +34,24 @@
     <!-- Botão para Editar Embarque -->
     <ImageButton
         android:id="@+id/editEmbarqueButton"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/editar_embarque"
-        android:padding="4dp"
-        android:src="@drawable/edit" />
+        android:contentDescription="editar_embarque"
+        android:src="@drawable/edit"
+        android:scaleType="centerInside"
+        android:padding="8dp"
+        />
 
     <!-- Botão para Deletar Embarque -->
     <ImageButton
         android:id="@+id/deleteEmbarqueButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/deletar_embarque"
-        android:padding="8dp"
-        android:src="@drawable/delete" />
+        android:contentDescription="deletar_embarque"
+        android:src="@drawable/delete"
+        android:scaleType="centerInside"
+        android:padding="4dp"
+        />
 </LinearLayout>
