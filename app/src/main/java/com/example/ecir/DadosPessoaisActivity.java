@@ -48,6 +48,9 @@ public class DadosPessoaisActivity extends AppCompatActivity {
         // Desabilitar os campos inicialmente
         toggleFields(false);
 
+        // Carregar os dados salvos do banco
+        loadData();
+
         // Configura o clique no botão de editar
         editButton.setOnClickListener(v -> {
             isEditing = !isEditing; // Alternar entre editar e salvar
@@ -66,6 +69,29 @@ public class DadosPessoaisActivity extends AppCompatActivity {
     }
 
     /**
+     * Carrega os dados salvos do banco de dados e preenche os campos.
+     */
+    private void loadData() {
+        try (DatabaseHelper dbHelper = new DatabaseHelper(this)) {
+            DadosPessoais dados = dbHelper.getDadosPessoais();
+            if (dados != null) {
+                editFields.get(0).setText(dados.getNumInscricao());
+                editFields.get(1).setText(dados.getNome());
+                editFields.get(2).setText(dados.getNaturalidade());
+                editFields.get(3).setText(dados.getNacionalidade());
+                editFields.get(4).setText(dados.getDataNascimento());
+                editFields.get(5).setText(dados.getOmEmissao());
+                Toast.makeText(this, "Dados carregados com sucesso!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Nenhum dado salvo encontrado.", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e("DadosPessoaisActivity", "Erro ao carregar os dados.", e);
+            Toast.makeText(this, "Erro ao carregar os dados.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
      * Alterna entre habilitar e desabilitar os campos de texto.
      */
     private void toggleFields(boolean enabled) {
@@ -77,7 +103,7 @@ public class DadosPessoaisActivity extends AppCompatActivity {
     }
 
     /**
-     * Salva os dados preenchidos (implemente a lógica de salvar aqui).
+     * Salva os dados preenchidos no banco de dados.
      */
     private void saveData() {
         DadosPessoais dados = new DadosPessoais(
@@ -89,16 +115,8 @@ public class DadosPessoaisActivity extends AppCompatActivity {
                 editFields.get(5).getText().toString()
         );
 
-        Log.d("DadosPessoaisActivity", "Dados a serem salvos: " +
-                "Num Inscrição: " + dados.getNumInscricao() +
-                ", Nome: " + dados.getNome() +
-                ", Naturalidade: " + dados.getNaturalidade() +
-                ", Nacionalidade: " + dados.getNacionalidade() +
-                ", Data Nascimento: " + dados.getDataNascimento() +
-                ", OM Emissão: " + dados.getOmEmissao());
+        Log.d("DadosPessoaisActivity", "Dados a serem salvos: " + dados);
 
-
-        // Usando try-with-resources para garantir que o banco de dados seja fechado
         try (DatabaseHelper dbHelper = new DatabaseHelper(this)) {
             boolean success = dbHelper.saveDadosPessoais(dados);
 
@@ -108,7 +126,6 @@ public class DadosPessoaisActivity extends AppCompatActivity {
                 Toast.makeText(this, "Erro ao salvar os dados.", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            // Usando o Log para registrar a exceção com uma tag personalizada
             Log.e("DadosPessoaisActivity", "Erro ao salvar os dados.", e);
             Toast.makeText(this, "Erro ao salvar os dados.", Toast.LENGTH_SHORT).show();
         }
@@ -118,13 +135,15 @@ public class DadosPessoaisActivity extends AppCompatActivity {
      * Valida os campos antes de salvar.
      */
     private boolean validateFields() {
+        boolean isValid = true;
+
         for (EditText field : editFields) {
             if (field.getText().toString().trim().isEmpty()) {
                 field.setError("Este campo é obrigatório");
                 field.requestFocus();
-                return false;
+                isValid = false;
             }
         }
-        return true;
+        return isValid;
     }
 }

@@ -1,26 +1,31 @@
 package com.example.ecir;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.ecir.database.DatabaseHelper;
 
 public class EditarEmbarqueActivity extends AppCompatActivity {
 
     private EditText editNumInscricao, editNomeEmbarcacao, editNumeroInscricao, editArqueacao,
             editLocalEmbarque, editDataEmbarque, editCategoria, editFuncao, editTipoNavegacao;
-    private Button btnEditarCertificado;
-    private ImageButton backButton;
+    private int embarqueId;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_embarque);
+
+        // Inicializando a instância do banco de dados
+        databaseHelper = new DatabaseHelper(this);
 
         // Inicializando os elementos da interface
         editNumInscricao = findViewById(R.id.editNumInscricao);
@@ -32,12 +37,13 @@ public class EditarEmbarqueActivity extends AppCompatActivity {
         editCategoria = findViewById(R.id.editCategoria);
         editFuncao = findViewById(R.id.editFuncao);
         editTipoNavegacao = findViewById(R.id.editTipoNavegacao);
-        btnEditarCertificado = findViewById(R.id.btnEditarCertificado);
-        backButton = findViewById(R.id.backButton);
+        Button btnSalvarAlteracoes = findViewById(R.id.btnSalvarAlteracoes);
+        ImageButton backButton = findViewById(R.id.backButton);
 
-        // Recuperar dados enviados (se aplicável)
+        // Recuperar os dados enviados (se aplicável)
         Intent intent = getIntent();
         if (intent != null) {
+            embarqueId = intent.getIntExtra("embarqueId", -1);
             editNumInscricao.setText(intent.getStringExtra("numInscricao"));
             editNomeEmbarcacao.setText(intent.getStringExtra("nomeEmbarcacao"));
             editNumeroInscricao.setText(intent.getStringExtra("numeroInscricao"));
@@ -53,7 +59,7 @@ public class EditarEmbarqueActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> finish());
 
         // Ação do botão de salvar alterações
-        btnEditarCertificado.setOnClickListener(v -> salvarAlteracoes());
+        btnSalvarAlteracoes.setOnClickListener(v -> salvarAlteracoes());
     }
 
     private void salvarAlteracoes() {
@@ -76,22 +82,28 @@ public class EditarEmbarqueActivity extends AppCompatActivity {
             return;
         }
 
-        // Exemplo de salvar ou enviar dados
-        // Aqui, você pode implementar lógica para salvar no banco de dados ou enviar a um servidor
-        Toast.makeText(this, "Alterações salvas com sucesso!", Toast.LENGTH_SHORT).show();
+        // Atualizar os dados no banco de dados
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("numInscricao", numInscricao);
+        values.put("nomeEmbarcacao", nomeEmbarcacao);
+        values.put("numeroInscricao", numeroInscricao);
+        values.put("arqueacao", arqueacao);
+        values.put("localEmbarque", localEmbarque);
+        values.put("dataEmbarque", dataEmbarque);
+        values.put("categoria", categoria);
+        values.put("funcao", funcao);
+        values.put("tipoNavegacao", tipoNavegacao);
 
-        // Finalizar a atividade e retornar os dados
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("numInscricao", numInscricao);
-        resultIntent.putExtra("nomeEmbarcacao", nomeEmbarcacao);
-        resultIntent.putExtra("numeroInscricao", numeroInscricao);
-        resultIntent.putExtra("arqueacao", arqueacao);
-        resultIntent.putExtra("localEmbarque", localEmbarque);
-        resultIntent.putExtra("dataEmbarque", dataEmbarque);
-        resultIntent.putExtra("categoria", categoria);
-        resultIntent.putExtra("funcao", funcao);
-        resultIntent.putExtra("tipoNavegacao", tipoNavegacao);
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        int rowsAffected = db.update("embarques", values, "id = ?", new String[]{String.valueOf(embarqueId)});
+        db.close();
+
+        if (rowsAffected > 0) {
+            Toast.makeText(this, "Alterações salvas com sucesso!", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
+        } else {
+            Toast.makeText(this, "Erro ao salvar alterações. Tente novamente.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

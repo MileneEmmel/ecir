@@ -10,4 +10,14 @@
     <item name="recyclerViewCertificados" type="id" />
     <item name="recyclerViewEmbarques" type="id" />
     <item name="emptyStateLayout" type="id" />
+    <item name="editFuncao" type="id" />
+    <item name="editTipoNavegacao" type="id" />
+    <item name="btnEditarCertificado" type="id" />
+    <item name="editDataEmbarque" type="id" />
+    <item name="editLocalEmbarque" type="id" />
+    <item name="editArqueacao" type="id" />
+    <item name="editNumeroInscricao" type="id" />
+    <item name="editNumInscricao" type="id" />
+    <item name="editNomeEmbarcacao" type="id" />
+    <item name="editCategoria" type="id" />
 </resources>

@@ -11,7 +11,6 @@ import com.example.ecir.database.DatabaseHelper;
 
 public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
     private EditText numInscricao, nomeEmbarcacao, numeroInscricao, arqueacao, localEmbarque, dataEmbarque, categoria, funcao, tipoNavegacao;
-    private Button btnSalvarCertificado;
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -31,7 +30,7 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
         funcao = findViewById(R.id.funcao);
         tipoNavegacao = findViewById(R.id.tipoNavegacao);
 
-        btnSalvarCertificado = findViewById(R.id.btnSalvarCertificado);
+        Button btnSalvarCertificado = findViewById(R.id.btnSalvarCertificado);
         btnSalvarCertificado.setOnClickListener(v -> salvarCertificado());
     }
 

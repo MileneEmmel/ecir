@@ -77,6 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     // Métodos para Dados Pessoais
     public boolean saveDadosPessoais(DadosPessoais dados) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -92,6 +93,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
+
+    /**
+     * Retorna os dados pessoais salvos no banco ou null se não existirem.
+     */
+    public DadosPessoais getDadosPessoais() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        DadosPessoais dados = null;
+
+        Cursor cursor = db.query(
+                TABLE_DADOS_PESSOAIS,
+                null,
+                null, // Nenhuma cláusula WHERE
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            dados = new DadosPessoais(
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NUM_INSCRICAO)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NATURALIDADE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NACIONALIDADE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATA_NASCIMENTO)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_OM_EMISSAO))
+            );
+            cursor.close();
+        }
+        db.close();
+        return dados;
+    }
+
 
     // Métodos para Embarques
     public boolean addEmbarque(Embarque embarque) {
@@ -140,7 +174,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return embarques;
     }
 
-    public void deleteEmbarqueById(int id) {
+    public boolean deleteEmbarqueById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsAffected = db.delete(TABLE_EMBARQUES, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
@@ -152,6 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // Nenhum registro encontrado com o ID fornecido
             System.out.println("Nenhum embarque encontrado com o ID " + id + ".");
         }
+        return false;
     }
 
     public Embarque getEmbarqueById(int embarqueId) {
