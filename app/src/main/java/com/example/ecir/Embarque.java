@@ -11,12 +11,12 @@ public class Embarque {
     private final String dataEmbarque;
     private final String categoria;
     private final String funcao;
-    private final String tipoNavegacao;
+    private String tipoNavegacao = "";
 
     // Construtor
     public Embarque(int id, String numInscricao, String nomeEmbarcacao, String numeroInscricao,
                     String arqueacao, String localEmbarque, String dataEmbarque,
-                    String categoria, String funcao, String tipoNavegacao) {
+                    String categoria, String funcao) {
         this.id = id;
         this.numInscricao = numInscricao;
         this.nomeEmbarcacao = nomeEmbarcacao;

@@ -37,73 +37,63 @@ public class EditarEmbarqueActivity extends AppCompatActivity {
         editCategoria = findViewById(R.id.editCategoria);
         editFuncao = findViewById(R.id.editFuncao);
         editTipoNavegacao = findViewById(R.id.editTipoNavegacao);
-        Button btnSalvarAlteracoes = findViewById(R.id.btnSalvarAlteracoes);
-        ImageButton backButton = findViewById(R.id.backButton);
+        Button salvarButton = findViewById(R.id.btnSalvarAlteracoes);
 
-        // Recuperar os dados enviados (se aplicável)
-        Intent intent = getIntent();
-        if (intent != null) {
-            embarqueId = intent.getIntExtra("embarqueId", -1);
-            editNumInscricao.setText(intent.getStringExtra("numInscricao"));
-            editNomeEmbarcacao.setText(intent.getStringExtra("nomeEmbarcacao"));
-            editNumeroInscricao.setText(intent.getStringExtra("numeroInscricao"));
-            editArqueacao.setText(intent.getStringExtra("arqueacao"));
-            editLocalEmbarque.setText(intent.getStringExtra("localEmbarque"));
-            editDataEmbarque.setText(intent.getStringExtra("dataEmbarque"));
-            editCategoria.setText(intent.getStringExtra("categoria"));
-            editFuncao.setText(intent.getStringExtra("funcao"));
-            editTipoNavegacao.setText(intent.getStringExtra("tipoNavegacao"));
+        // Obtendo o ID do embarque
+        embarqueId = getIntent().getIntExtra("EMBARQUE_ID", -1);
+        preencherCamposComDados();
+
+        salvarButton.setOnClickListener(v -> salvarAlteracoes());
+    }
+
+    private void preencherCamposComDados() {
+        Embarque embarque = databaseHelper.getEmbarqueById(embarqueId);
+        if (embarque != null) {
+            editNumInscricao.setText(embarque.getNumInscricao());
+            editNomeEmbarcacao.setText(embarque.getNomeEmbarcacao());
+            editNumeroInscricao.setText(embarque.getNumeroInscricao());
+            editArqueacao.setText(embarque.getArqueacao());
+            editLocalEmbarque.setText(embarque.getLocalEmbarque());
+            editDataEmbarque.setText(embarque.getDataEmbarque());
+            editCategoria.setText(embarque.getCategoria());
+            editFuncao.setText(embarque.getFuncao());
+            editTipoNavegacao.setText(embarque.getTipoNavegacao());
         }
-
-        // Ação do botão de voltar
-        backButton.setOnClickListener(v -> finish());
-
-        // Ação do botão de salvar alterações
-        btnSalvarAlteracoes.setOnClickListener(v -> salvarAlteracoes());
     }
 
     private void salvarAlteracoes() {
-        // Recuperar os dados dos campos
-        String numInscricao = editNumInscricao.getText().toString().trim();
-        String nomeEmbarcacao = editNomeEmbarcacao.getText().toString().trim();
-        String numeroInscricao = editNumeroInscricao.getText().toString().trim();
-        String arqueacao = editArqueacao.getText().toString().trim();
-        String localEmbarque = editLocalEmbarque.getText().toString().trim();
-        String dataEmbarque = editDataEmbarque.getText().toString().trim();
-        String categoria = editCategoria.getText().toString().trim();
-        String funcao = editFuncao.getText().toString().trim();
-        String tipoNavegacao = editTipoNavegacao.getText().toString().trim();
+        // Recuperando os dados atualizados
+        String numInscricao = editNumInscricao.getText().toString();
+        String nomeEmbarcacao = editNomeEmbarcacao.getText().toString();
+        String numeroInscricao = editNumeroInscricao.getText().toString();
+        String arqueacao = editArqueacao.getText().toString();
+        String localEmbarque = editLocalEmbarque.getText().toString();
+        String dataEmbarque = editDataEmbarque.getText().toString();
+        String categoria = editCategoria.getText().toString();
+        String funcao = editFuncao.getText().toString();
+        String tipoNavegacao = editTipoNavegacao.getText().toString();
 
-        // Validar os campos (exemplo básico)
-        if (numInscricao.isEmpty() || nomeEmbarcacao.isEmpty() || numeroInscricao.isEmpty() ||
-                arqueacao.isEmpty() || localEmbarque.isEmpty() || dataEmbarque.isEmpty() ||
-                categoria.isEmpty() || funcao.isEmpty() || tipoNavegacao.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Atualizar os dados no banco de dados
+        // Atualizando o embarque no banco de dados
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("numInscricao", numInscricao);
-        values.put("nomeEmbarcacao", nomeEmbarcacao);
-        values.put("numeroInscricao", numeroInscricao);
-        values.put("arqueacao", arqueacao);
-        values.put("localEmbarque", localEmbarque);
-        values.put("dataEmbarque", dataEmbarque);
-        values.put("categoria", categoria);
-        values.put("funcao", funcao);
-        values.put("tipoNavegacao", tipoNavegacao);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("numInscricao", numInscricao);
+        contentValues.put("nomeEmbarcacao", nomeEmbarcacao);
+        contentValues.put("numeroInscricao", numeroInscricao);
+        contentValues.put("arqueacao", arqueacao);
+        contentValues.put("localEmbarque", localEmbarque);
+        contentValues.put("dataEmbarque", dataEmbarque);
+        contentValues.put("categoria", categoria);
+        contentValues.put("funcao", funcao);
+        contentValues.put("tipoNavegacao", tipoNavegacao);
 
-        int rowsAffected = db.update("embarques", values, "id = ?", new String[]{String.valueOf(embarqueId)});
-        db.close();
+        int rowsUpdated = db.update("Embarques", contentValues, "id = ?", new String[]{String.valueOf(embarqueId)});
 
-        if (rowsAffected > 0) {
-            Toast.makeText(this, "Alterações salvas com sucesso!", Toast.LENGTH_SHORT).show();
-            setResult(RESULT_OK);
+        if (rowsUpdated > 0) {
+            Toast.makeText(this, "Embarque atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);  // Retorna para a atividade anterior com resultado
             finish();
         } else {
-            Toast.makeText(this, "Erro ao salvar alterações. Tente novamente.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Erro ao atualizar embarque", Toast.LENGTH_SHORT).show();
         }
     }
 }

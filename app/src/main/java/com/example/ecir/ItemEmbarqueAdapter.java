@@ -1,5 +1,3 @@
-
-// ItemEmbarqueAdapter.java
 package com.example.ecir;
 
 import android.content.Context;
@@ -55,7 +53,16 @@ public class ItemEmbarqueAdapter extends RecyclerView.Adapter<ItemEmbarqueAdapte
         // Evento do botão "Editar"
         holder.editEmbarqueButton.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarEmbarqueActivity.class);
-            intent.putExtra("EMBARQUE_ID", embarque.getId());
+            intent.putExtra("EMBARQUE_ID", embarque.getId()); // Alterei a chave para "EMBARQUE_ID"
+            intent.putExtra("numInscricao", embarque.getNumInscricao());
+            intent.putExtra("nomeEmbarcacao", embarque.getNomeEmbarcacao());
+            intent.putExtra("numeroInscricao", embarque.getNumeroInscricao());
+            intent.putExtra("arqueacao", embarque.getArqueacao());
+            intent.putExtra("localEmbarque", embarque.getLocalEmbarque());
+            intent.putExtra("dataEmbarque", embarque.getDataEmbarque());
+            intent.putExtra("categoria", embarque.getCategoria());
+            intent.putExtra("funcao", embarque.getFuncao());
+            intent.putExtra("tipoNavegacao", embarque.getTipoNavegacao());
             context.startActivity(intent);
         });
 

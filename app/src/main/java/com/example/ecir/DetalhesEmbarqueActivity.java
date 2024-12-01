@@ -2,6 +2,7 @@ package com.example.ecir;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.ecir.database.DatabaseHelper;
 
@@ -53,8 +54,9 @@ public class DetalhesEmbarqueActivity extends AppCompatActivity {
             funcaoDetalhe.setText(embarque.getFuncao());
             tipoNavegacaoDetalhe.setText(embarque.getTipoNavegacao());
         } else {
-            // Caso não encontre o embarque, exibir uma mensagem ou finalizar a atividade
-            finish();
+            // Caso não encontre o embarque, exibir uma mensagem de erro
+            Toast.makeText(this, "Embarque não encontrado", Toast.LENGTH_SHORT).show();
+            finish(); // Finaliza a activity se não encontrar
         }
     }
 }

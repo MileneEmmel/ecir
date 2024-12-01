@@ -50,7 +50,7 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
             return;
         }
 
-        Embarque embarque = new Embarque(0, inscricao, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor, tipo);
+        Embarque embarque = new Embarque(0, inscricao, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor);
 
         boolean isSaved = databaseHelper.addEmbarque(embarque); // Método modificado para retornar boolean
 

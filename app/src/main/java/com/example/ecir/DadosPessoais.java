@@ -66,4 +66,5 @@ public class DadosPessoais {
     public void setOmEmissao(String omEmissao) {
         this.omEmissao = omEmissao;
     }
+
 }

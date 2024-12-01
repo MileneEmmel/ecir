@@ -24,7 +24,6 @@ public class EmbarqueAdapter extends RecyclerView.Adapter<EmbarqueAdapter.Embarq
 
     public EmbarqueAdapter(List<Embarque> embarqueList) {
         this.embarqueList = embarqueList;
-        this.listener = listener;
     }
 
     @NonNull

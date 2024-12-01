@@ -1,7 +1,9 @@
 package com.example.ecir;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,7 +26,8 @@ public class DadosPessoaisActivity extends AppCompatActivity {
 
         // Inicialize o botão de voltar
         ImageButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());
+        backButton.setOnClickListener(this::onClick);
+
 
         // Inicialize o botão de editar
         ImageButton editButton = findViewById(R.id.editButton);
@@ -62,7 +65,7 @@ public class DadosPessoaisActivity extends AppCompatActivity {
             } else {
                 editButton.setImageResource(R.drawable.editar);
                 if (validateFields()) {
-                    saveData();
+                    saveOrUpdateData();
                 }
             }
         });
@@ -103,9 +106,9 @@ public class DadosPessoaisActivity extends AppCompatActivity {
     }
 
     /**
-     * Salva os dados preenchidos no banco de dados.
+     * Salva ou atualiza os dados preenchidos no banco de dados.
      */
-    private void saveData() {
+    private void saveOrUpdateData() {
         DadosPessoais dados = new DadosPessoais(
                 editFields.get(0).getText().toString(),
                 editFields.get(1).getText().toString(),
@@ -115,15 +118,15 @@ public class DadosPessoaisActivity extends AppCompatActivity {
                 editFields.get(5).getText().toString()
         );
 
-        Log.d("DadosPessoaisActivity", "Dados a serem salvos: " + dados);
+        Log.d("DadosPessoaisActivity", "Tentando salvar/atualizar dados: " + dados);
 
         try (DatabaseHelper dbHelper = new DatabaseHelper(this)) {
-            boolean success = dbHelper.saveDadosPessoais(dados);
+            boolean success = dbHelper.saveOrUpdateDadosPessoais(dados);
 
             if (success) {
-                Toast.makeText(this, "Dados salvos com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Dados salvos ou atualizados com sucesso!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Erro ao salvar os dados.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Erro ao salvar ou atualizar os dados.", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Log.e("DadosPessoaisActivity", "Erro ao salvar os dados.", e);
@@ -145,5 +148,9 @@ public class DadosPessoaisActivity extends AppCompatActivity {
             }
         }
         return isValid;
+    }
+
+    private void onClick(View v) {
+        finish();
     }
 }
