@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ecir.database.DatabaseHelper;
 
 public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
-    private EditText numInscricao, nomeEmbarcacao, numeroInscricao, arqueacao, localEmbarque, dataEmbarque, categoria, funcao, tipoNavegacao;
+    private EditText nomeEmbarcacao, numeroInscricao, arqueacao, localEmbarque, dataEmbarque, categoria, funcao, tipoNavegacao;
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -20,7 +20,6 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
 
-        numInscricao = findViewById(R.id.numInscricao);
         nomeEmbarcacao = findViewById(R.id.nomeEmbarcacao);
         numeroInscricao = findViewById(R.id.numeroInscricao);
         arqueacao = findViewById(R.id.arqueacao);
@@ -31,11 +30,10 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
         tipoNavegacao = findViewById(R.id.tipoNavegacao);
 
         Button btnSalvarCertificado = findViewById(R.id.btnSalvarCertificado);
-        btnSalvarCertificado.setOnClickListener(v -> salvarCertificado());
+        btnSalvarCertificado.setOnClickListener(v -> salvarEmbarque());
     }
 
-    private void salvarCertificado() {
-        String inscricao = numInscricao.getText().toString().trim();
+    private void salvarEmbarque() {
         String nome = nomeEmbarcacao.getText().toString().trim();
         String numero = numeroInscricao.getText().toString().trim();
         String arqueacaoValor = arqueacao.getText().toString().trim();
@@ -43,14 +41,14 @@ public class NovoRegistroEmbarqueActivity extends AppCompatActivity {
         String data = dataEmbarque.getText().toString().trim();
         String categoriaValor = categoria.getText().toString().trim();
         String funcaoValor = funcao.getText().toString().trim();
-        String tipo = tipoNavegacao.getText().toString().trim();
+        String tipoNavegacaoValor = tipoNavegacao.getText().toString().trim();
 
-        if (inscricao.isEmpty() || nome.isEmpty() || numero.isEmpty()) {
+        if ( nome.isEmpty() || numero.isEmpty()) {
             Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Embarque embarque = new Embarque(0, inscricao, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor);
+        Embarque embarque = new Embarque(0, nome, numero, arqueacaoValor, local, data, categoriaValor, funcaoValor, tipoNavegacaoValor);
 
         boolean isSaved = databaseHelper.addEmbarque(embarque); // Método modificado para retornar boolean
 

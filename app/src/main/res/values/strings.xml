@@ -54,4 +54,14 @@
     <string name="nome_do_certificado">Nome do Certificado</string>
     <string name="ver">Ver</string>
     <string name="menu">menu</string>
+    <string name="tipo_de_navega_o_detalhe">Tipo de Navegação Detalhe</string>
+    <string name="fun_o_detalhe">Função Detalhe</string>
+    <string name="categoria_detalhe">Categoria Detalhe</string>
+    <string name="local_do_embarque">Local do Embarque</string>
+    <string name="arquea_o_detalhe">Arqueação Detalhe</string>
+    <string name="_001234">001234</string>
+    <string name="nome_da_embarca_o">Nome da Embarcação</string>
+    <string name="_123456">123456</string>
+    <string name="_01_01_2024">01/01/2024</string>
+    <string name="salvar_altera_es">Salvar Alterações</string>
 </resources>

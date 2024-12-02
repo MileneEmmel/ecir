@@ -41,7 +41,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
         android:layout_marginTop="70dp">
 
         <LinearLayout
@@ -62,8 +61,8 @@
                 android:id="@+id/numInscricaoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="123456"
+                android:layout_marginBottom="16dp"
+                android:text="@string/_123456"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -79,27 +78,11 @@
                 android:id="@+id/nomeEmbarcacaoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Nome da Embarcação"
+                android:layout_marginBottom="16dp"
+                android:text="@string/nome_da_embarca_o"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
-            <!-- Nº de Inscrição -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/numero_inscricao"
-                android:textSize="18sp"
-                android:textColor="#0B274E" />
-
-            <TextView
-                android:id="@+id/numeroInscricaoDetalhe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="001234"
-                android:textSize="16sp"
-                android:textColor="#000000" />
 
             <!-- Arqueação -->
             <TextView
@@ -113,8 +96,8 @@
                 android:id="@+id/arqueacaoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Arqueação Detalhe"
+                android:layout_marginBottom="16dp"
+                android:text="@string/arquea_o_detalhe"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -130,8 +113,8 @@
                 android:id="@+id/localEmbarqueDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Local do Embarque"
+                android:layout_marginBottom="16dp"
+                android:text="@string/local_do_embarque"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -147,8 +130,8 @@
                 android:id="@+id/dataEmbarqueDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="01/01/2024"
+                android:layout_marginBottom="16dp"
+                android:text="@string/_01_01_2024"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -164,8 +147,8 @@
                 android:id="@+id/categoriaDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Categoria Detalhe"
+                android:layout_marginBottom="16dp"
+                android:text="@string/categoria_detalhe"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -181,8 +164,8 @@
                 android:id="@+id/funcaoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Função Detalhe"
+                android:layout_marginBottom="16dp"
+                android:text="@string/fun_o_detalhe"
                 android:textSize="16sp"
                 android:textColor="#000000" />
 
@@ -199,7 +182,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Tipo de Navegação Detalhe"
+                android:text="@string/tipo_de_navega_o_detalhe"
                 android:textSize="16sp"
                 android:textColor="#000000" />
         </LinearLayout>

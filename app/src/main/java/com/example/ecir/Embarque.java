@@ -3,7 +3,6 @@ package com.example.ecir;
 public class Embarque {
 
     private final int id; // ID do embarque
-    private final String numInscricao;
     private final String nomeEmbarcacao;
     private final String numeroInscricao;
     private final String arqueacao;
@@ -11,14 +10,11 @@ public class Embarque {
     private final String dataEmbarque;
     private final String categoria;
     private final String funcao;
-    private String tipoNavegacao = "";
+    private final String tipoNavegacao;
 
     // Construtor
-    public Embarque(int id, String numInscricao, String nomeEmbarcacao, String numeroInscricao,
-                    String arqueacao, String localEmbarque, String dataEmbarque,
-                    String categoria, String funcao) {
+    public Embarque(int id, String nomeEmbarcacao, String numeroInscricao, String arqueacao, String localEmbarque, String dataEmbarque, String categoria, String funcao, String tipoNavegacao) {
         this.id = id;
-        this.numInscricao = numInscricao;
         this.nomeEmbarcacao = nomeEmbarcacao;
         this.numeroInscricao = numeroInscricao;
         this.arqueacao = arqueacao;
@@ -31,7 +27,6 @@ public class Embarque {
 
     // Getters
     public int getId() { return id; }
-    public String getNumInscricao() { return numInscricao; }
     public String getNomeEmbarcacao() { return nomeEmbarcacao; }
     public String getNumeroInscricao() { return numeroInscricao; }
     public String getArqueacao() { return arqueacao; }

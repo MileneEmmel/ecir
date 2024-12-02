@@ -1,8 +1,10 @@
 package com.example.ecir;
 
-import android.Manifest;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.ecir.database.DatabaseHelper;
+
 public class NovoCertificadoActivity extends AppCompatActivity {
 
     private static final int PICK_PDF_REQUEST = 1; // Código para identificar o pedido de escolha de PDF
@@ -21,6 +25,7 @@ public class NovoCertificadoActivity extends AppCompatActivity {
     private EditText editNome, editData, editOrganizacao;
     private Button btnSalvar, btnSelecionarPdf;
     private Uri pdfUri; // Uri para armazenar o caminho do arquivo PDF selecionado
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,15 @@ public class NovoCertificadoActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvarCertificado);
         btnSelecionarPdf = findViewById(R.id.btnSelecionarPdf);
 
+        // Inicializa o banco de dados
+        dbHelper = new DatabaseHelper(this);
+
         // Verifica e solicita a permissão para acessar o armazenamento
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // Se a permissão não foi concedida, solicite-a
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
 
         // Ação do botão para selecionar o PDF
@@ -79,7 +87,7 @@ public class NovoCertificadoActivity extends AppCompatActivity {
         }
     }
 
-    // Salva o certificado com as informações e o PDF
+    // Salva o certificado no banco de dados e o PDF no armazenamento
     private void salvarCertificado() {
         String nome = editNome.getText().toString();
         String data = editData.getText().toString();
@@ -89,10 +97,23 @@ public class NovoCertificadoActivity extends AppCompatActivity {
         if (nome.isEmpty() || data.isEmpty() || organizacao.isEmpty() || pdfUri == null) {
             Toast.makeText(this, "Preencha todos os campos e selecione um PDF", Toast.LENGTH_SHORT).show();
         } else {
-            // Lógica para salvar o certificado, incluindo o PDF (pdfUri)
-            // Aqui você pode, por exemplo, enviar para um servidor ou salvar localmente
-            Toast.makeText(this, "Certificado salvo com sucesso!", Toast.LENGTH_SHORT).show();
-            finish(); // Fecha a atividade e retorna para a anterior
+            // Abre o banco de dados para inserção
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            // Salva os dados no banco
+            ContentValues values = new ContentValues();
+            values.put("nome", nome);
+            values.put("data", data);
+            values.put("organizacao", organizacao);
+            values.put("pdf_path", pdfUri.toString());
+
+            long result = db.insert("certificados", null, values);
+            if (result != -1) {
+                Toast.makeText(this, "Certificado salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                finish(); // Fecha a atividade e retorna para a anterior
+            } else {
+                Toast.makeText(this, "Erro ao salvar certificado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -1,62 +1,44 @@
 package com.example.ecir;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.ecir.database.DatabaseHelper;
 
 public class DetalhesEmbarqueActivity extends AppCompatActivity {
-    private TextView numInscricaoDetalhe, nomeEmbarcacaoDetalhe, numeroInscricaoDetalhe, arqueacaoDetalhe;
-    private TextView localEmbarqueDetalhe, dataEmbarqueDetalhe, categoriaDetalhe, funcaoDetalhe, tipoNavegacaoDetalhe;
-    private DatabaseHelper databaseHelper;
-    private int embarqueId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhes_embarque); // Nome do XML do layout
+        setContentView(R.layout.activity_detalhes_embarque); // Aponta para o XML fornecido
 
-        // Inicializar o banco de dados
-        databaseHelper = new DatabaseHelper(this);
+        // Toolbar - Botão de voltar
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> finish());
 
-        // Obter o ID do embarque da Intent
-        embarqueId = getIntent().getIntExtra("EMBARQUE_ID", -1);
+        // Recuperando dados da Intent
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            // Campos do layout
+            TextView nomeEmbarcacaoDetalhe = findViewById(R.id.nomeEmbarcacaoDetalhe);
+            TextView numInscricaoDetalhe = findViewById(R.id.numInscricaoDetalhe);
+            TextView arqueacaoDetalhe = findViewById(R.id.arqueacaoDetalhe);
+            TextView localEmbarqueDetalhe = findViewById(R.id.localEmbarqueDetalhe);
+            TextView dataEmbarqueDetalhe = findViewById(R.id.dataEmbarqueDetalhe);
+            TextView categoriaDetalhe = findViewById(R.id.categoriaDetalhe);
+            TextView funcaoDetalhe = findViewById(R.id.funcaoDetalhe);
+            TextView tipoNavegacaoDetalhe = findViewById(R.id.tipoNavegacaoDetalhe);
 
-        // Inicializar os TextViews
-        numInscricaoDetalhe = findViewById(R.id.numInscricaoDetalhe);
-        nomeEmbarcacaoDetalhe = findViewById(R.id.nomeEmbarcacaoDetalhe);
-        numeroInscricaoDetalhe = findViewById(R.id.numeroInscricaoDetalhe);
-        arqueacaoDetalhe = findViewById(R.id.arqueacaoDetalhe);
-        localEmbarqueDetalhe = findViewById(R.id.localEmbarqueDetalhe);
-        dataEmbarqueDetalhe = findViewById(R.id.dataEmbarqueDetalhe);
-        categoriaDetalhe = findViewById(R.id.categoriaDetalhe);
-        funcaoDetalhe = findViewById(R.id.funcaoDetalhe);
-        tipoNavegacaoDetalhe = findViewById(R.id.tipoNavegacaoDetalhe);
-
-        // Carregar os detalhes do embarque
-        carregarDetalhes();
-    }
-
-    private void carregarDetalhes() {
-        // Buscar o embarque pelo ID
-        Embarque embarque = databaseHelper.getEmbarqueById(embarqueId);
-
-        if (embarque != null) {
-            // Exibir os detalhes do embarque nos TextViews
-            numInscricaoDetalhe.setText(embarque.getNumInscricao());
-            nomeEmbarcacaoDetalhe.setText(embarque.getNomeEmbarcacao());
-            numeroInscricaoDetalhe.setText(embarque.getNumeroInscricao());
-            arqueacaoDetalhe.setText(embarque.getArqueacao());
-            localEmbarqueDetalhe.setText(embarque.getLocalEmbarque());
-            dataEmbarqueDetalhe.setText(embarque.getDataEmbarque());
-            categoriaDetalhe.setText(embarque.getCategoria());
-            funcaoDetalhe.setText(embarque.getFuncao());
-            tipoNavegacaoDetalhe.setText(embarque.getTipoNavegacao());
-        } else {
-            // Caso não encontre o embarque, exibir uma mensagem de erro
-            Toast.makeText(this, "Embarque não encontrado", Toast.LENGTH_SHORT).show();
-            finish(); // Finaliza a activity se não encontrar
+            // Preenchendo os dados
+            nomeEmbarcacaoDetalhe.setText(extras.getString("nomeEmbarcacao", "N/A"));
+            numInscricaoDetalhe.setText(extras.getString("numeroInscricao", "N/A"));
+            arqueacaoDetalhe.setText(extras.getString("arqueacao", "N/A"));
+            localEmbarqueDetalhe.setText(extras.getString("localEmbarque", "N/A"));
+            dataEmbarqueDetalhe.setText(extras.getString("dataEmbarque", "N/A"));
+            categoriaDetalhe.setText(extras.getString("categoria", "N/A"));
+            funcaoDetalhe.setText(extras.getString("funcao", "N/A"));
+            tipoNavegacaoDetalhe.setText(extras.getString("tipoNavegacao", "N/A"));
         }
     }
 }

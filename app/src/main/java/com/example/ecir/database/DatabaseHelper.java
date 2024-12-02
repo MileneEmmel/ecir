@@ -1,7 +1,5 @@
 package com.example.ecir.database;
 
-import static android.app.DownloadManager.COLUMN_ID;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -32,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Tabela Embarques
     private static final String TABLE_EMBARQUES = "embarques";
+    private static final String COLUMN_ID = "id";
     private static final String COLUMN_NOME_EMBARCACAO = "nomeEmbarcacao";
     private static final String COLUMN_NUMERO_INSCRICAO = "numeroInscricao";
     private static final String COLUMN_ARQUEACAO = "arqueacao";
@@ -40,6 +39,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CATEGORIA = "categoria";
     private static final String COLUMN_FUNCAO = "funcao";
     private static final String COLUMN_TIPO_NAVEGACAO = "tipoNavegacao";
+
+    // Tabela de certificados
+    private static final String TABLE_CERTIFICADOS = "certificados";
+    private static final String COLUMN_ID_CERTIFICADO = "id";
+    private static final String COLUMN_NOME_CERTIFICADO = "nome";
+    private static final String COLUMN_DATA = "data";
+    private static final String COLUMN_ORGANIZACAO = "organizacao";
+    private static final String COLUMN_PDF_PATH = "pdf_path";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,13 +64,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_OM_EMISSAO + " TEXT)";
         db.execSQL(CREATE_TABLE_DADOS_PESSOAIS);
 
-
+            // Criação da tabela de certificados
+            String CREATE_TABLE = "CREATE TABLE " + TABLE_CERTIFICADOS + " (" +
+                    COLUMN_ID_CERTIFICADO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_NOME_CERTIFICADO + " TEXT, " +
+                    COLUMN_DATA + " TEXT, " +
+                    COLUMN_ORGANIZACAO + " TEXT, " +
+                    COLUMN_PDF_PATH + " TEXT)";
+            db.execSQL(CREATE_TABLE);
 
     // Criação da tabela Embarques
         String CREATE_TABLE_EMBARQUES = "CREATE TABLE " + TABLE_EMBARQUES + "(" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NUMERO_INSCRICAO + " TEXT, " +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOME_EMBARCACAO + " TEXT, " +
+                COLUMN_NUMERO_INSCRICAO + " TEXT, " +
                 COLUMN_ARQUEACAO + " TEXT, " +
                 COLUMN_LOCAL_EMBARQUE + " TEXT, " +
                 COLUMN_DATA_EMBARQUE + " TEXT, " +
@@ -71,14 +85,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_FUNCAO + " TEXT, " +
                 COLUMN_TIPO_NAVEGACAO + " TEXT)";
         db.execSQL(CREATE_TABLE_EMBARQUES);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DADOS_PESSOAIS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMBARQUES);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMBARQUES);
+            onCreate(db); // Recriar a tabela de embarques se necessário
+        }
     }
+
     public boolean saveOrUpdateDadosPessoais(DadosPessoais dados) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -100,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return result != -1;
         } else {
             // Não existe dados, vamos inserir
+            assert cursor != null;
             cursor.close();
             long result = db.insert(TABLE_DADOS_PESSOAIS, null, values);
             return result != -1;
@@ -151,15 +169,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // Obter todos os embarques
     public List<Embarque> getAllEmbarques() {
         List<Embarque> embarques = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        try (Cursor cursor = db.query(TABLE_EMBARQUES, null, null, null, null, null, null)) {
+        try (Cursor cursor = db.query(TABLE_EMBARQUES, null, null, null, null, null, COLUMN_ID + " DESC")) {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     Embarque embarque = new Embarque(
-                            cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                            cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                             cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOME_EMBARCACAO)),
                             cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NUMERO_INSCRICAO)),
                             cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARQUEACAO)),
@@ -175,58 +194,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.e(TAG, "Erro ao buscar embarques", e);
         }
-
+        db.close(); // Fecha o banco de dados
         return embarques;
     }
 
-    public Embarque getEmbarqueById(int embarqueId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Embarque embarque = null;
-
-        // Consulta para buscar o embarque pelo ID
-        Cursor cursor = db.query(
-                TABLE_EMBARQUES, // Tabela
-                null, // Todas as colunas
-                COLUMN_ID + " = ?", // Condição WHERE
-                new String[]{String.valueOf(embarqueId)}, // Argumento para o WHERE
-                null, null, null); // Sem agrupamento, ordenação ou limite
-
-        // Verifica se o cursor contém dados
-        if (cursor != null && cursor.moveToFirst()) {
-            // Criação do objeto Embarque com os dados do cursor
-            embarque = new Embarque(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOME_EMBARCACAO)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NUMERO_INSCRICAO)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARQUEACAO)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCAL_EMBARQUE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DATA_EMBARQUE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORIA)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FUNCAO)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TIPO_NAVEGACAO))
-            );
-        }
-
-        // Fecha o cursor e o banco de dados
-        if (cursor != null) cursor.close();
-        db.close();
-
-        return embarque;
-    }
 
     public boolean deleteEmbarqueById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsAffected = db.delete(TABLE_EMBARQUES, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
-
-        if (rowsAffected > 0) {
-            // Registro excluído com sucesso
-            System.out.println("Embarque com ID " + id + " foi excluído com sucesso.");
-        } else {
-            // Nenhum registro encontrado com o ID fornecido
-            System.out.println("Nenhum embarque encontrado com o ID " + id + ".");
-        }
-        return false;
+        return rowsAffected > 0; // Retorna verdadeiro se pelo menos uma linha foi afetada
     }
+
+
 }
 

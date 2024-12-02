@@ -47,16 +47,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Nº de inscrição -->
-        <EditText
-            android:id="@+id/numInscricao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_corners"
-            android:hint="@string/nome_registro"
-            android:inputType="number"
-            android:padding="14dp" />
 
         <!-- Nome Embarcação -->
         <EditText
@@ -66,7 +56,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/rounded_corners"
             android:hint="@string/nome_embarcacao"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:padding="14dp" />
 
         <!-- Nº de Inscrição -->

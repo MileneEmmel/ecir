@@ -1,4 +1,4 @@
-// RegistroEmbarqueActivity.java
+
 package com.example.ecir;
 
 import android.content.DialogInterface;

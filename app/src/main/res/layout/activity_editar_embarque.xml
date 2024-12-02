@@ -46,26 +46,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Nº de inscrição -->
-        <EditText
-            android:id="@+id/editNumInscricao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/rounded_corners"
-            android:hint="@string/nome_registro"
-            android:inputType="number"
-            android:padding="14dp" />
-
         <!-- Nome Embarcação -->
         <EditText
             android:id="@+id/editNomeEmbarcacao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/nome_embarcacao"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:padding="14dp" />
 
         <!-- Nº de Inscrição -->
@@ -74,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/numero_inscricao"
             android:inputType="text"
@@ -85,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/arqueacao"
             android:inputType="text"
@@ -96,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/local_embarque"
             android:inputType="text"
@@ -118,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/categoria"
             android:inputType="text"
@@ -129,6 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/funcao"
             android:inputType="text"
@@ -140,6 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:autofillHints=""
             android:background="@drawable/rounded_corners"
             android:hint="@string/tipo_navegacao"
             android:inputType="text"
@@ -151,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Salvar Alterações"
+            android:text="@string/salvar_altera_es"
             android:backgroundTint="#0B274E"
             android:textColor="#FFFFFF"
             android:padding="8dp"
