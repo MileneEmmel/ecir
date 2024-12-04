@@ -19,6 +19,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String TAG = "DatabaseHelper";
 
+    // Tabela Users
+    private static final String TABLE_USERS = "users";
+    private static final String COLUMN_USER_ID = "id";
+    private static final String COLUMN_USERNAME = "username";
+    private static final String COLUMN_PASSWORD = "password";
+    private static final String COLUMN_EMAIL = "email";
+
     // Tabela Dados Pessoais
     private static final String TABLE_DADOS_PESSOAIS = "dados_pessoais";
     private static final String COLUMN_NUM_INSCRICAO = "numInscricao";
@@ -54,6 +61,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Criação da tabela de usuários
+        String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS + " (" +
+                COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USERNAME + " TEXT, " +
+                COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_EMAIL + " TEXT)";
+        db.execSQL(CREATE_TABLE_USERS);
+
+        // Criação da tabela Dados Pessoais
         String CREATE_TABLE_DADOS_PESSOAIS = "CREATE TABLE " + TABLE_DADOS_PESSOAIS + " (" +
                 "registro_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NUM_INSCRICAO + " TEXT, " +
@@ -64,17 +80,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_OM_EMISSAO + " TEXT)";
         db.execSQL(CREATE_TABLE_DADOS_PESSOAIS);
 
-            // Criação da tabela de certificados
-            String CREATE_TABLE = "CREATE TABLE " + TABLE_CERTIFICADOS + " (" +
-                    COLUMN_ID_CERTIFICADO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NOME_CERTIFICADO + " TEXT, " +
-                    COLUMN_DATA + " TEXT, " +
-                    COLUMN_ORGANIZACAO + " TEXT, " +
-                    COLUMN_PDF_PATH + " TEXT)";
-            db.execSQL(CREATE_TABLE);
+        // Criação da tabela de certificados
+        String CREATE_TABLE_CERTIFICADOS = "CREATE TABLE " + TABLE_CERTIFICADOS + " (" +
+                COLUMN_ID_CERTIFICADO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOME_CERTIFICADO + " TEXT, " +
+                COLUMN_DATA + " TEXT, " +
+                COLUMN_ORGANIZACAO + " TEXT, " +
+                COLUMN_PDF_PATH + " TEXT)";
+        db.execSQL(CREATE_TABLE_CERTIFICADOS);
 
-    // Criação da tabela Embarques
-        String CREATE_TABLE_EMBARQUES = "CREATE TABLE " + TABLE_EMBARQUES + "(" +
+        // Criação da tabela Embarques
+        String CREATE_TABLE_EMBARQUES = "CREATE TABLE " + TABLE_EMBARQUES + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOME_EMBARCACAO + " TEXT, " +
                 COLUMN_NUMERO_INSCRICAO + " TEXT, " +
@@ -85,14 +101,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_FUNCAO + " TEXT, " +
                 COLUMN_TIPO_NAVEGACAO + " TEXT)";
         db.execSQL(CREATE_TABLE_EMBARQUES);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
+        if (oldVersion < DATABASE_VERSION) {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_DADOS_PESSOAIS);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_EMBARQUES);
-            onCreate(db); // Recriar a tabela de embarques se necessário
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CERTIFICADOS);
+            onCreate(db);
+        }
+    }
+
+    // Método para inserir um usuário
+    public boolean insertUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_USERNAME, user.getUsername());
+        values.put(COLUMN_PASSWORD, user.getPassword());
+        values.put(COLUMN_EMAIL, user.getEmail());
+
+        long result = db.insert(TABLE_USERS, null, values);
+        db.close();
+        return result != -1;
+    }
+
+    // Classe User para representar os dados dos usuários
+    public static class User {
+        private final String username;
+        private final String password;
+        private final String email;
+
+        public User(String username, String email, String password) {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public String getEmail() {
+            return email;
         }
     }
 
@@ -107,23 +164,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATA_NASCIMENTO, dados.getDataNascimento());
         values.put(COLUMN_OM_EMISSAO, dados.getOmEmissao());
 
-        // Verificar se já existe um registro
-        Cursor cursor = db.query(TABLE_DADOS_PESSOAIS, new String[]{COLUMN_NUM_INSCRICAO}, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_DADOS_PESSOAIS, null, COLUMN_NUM_INSCRICAO + " = ?", new String[]{dados.getNumInscricao()}, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
-            // Já existe dados, vamos atualizar
-            long result = db.update(TABLE_DADOS_PESSOAIS, values, null, null);
+            long result = db.update(TABLE_DADOS_PESSOAIS, values, COLUMN_NUM_INSCRICAO + " = ?", new String[]{dados.getNumInscricao()});
             cursor.close();
             return result != -1;
         } else {
-            // Não existe dados, vamos inserir
-            assert cursor != null;
-            cursor.close();
+            if (cursor != null) cursor.close();
             long result = db.insert(TABLE_DADOS_PESSOAIS, null, values);
             return result != -1;
         }
     }
-
 
     public DadosPessoais getDadosPessoais() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -205,7 +257,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return rowsAffected > 0; // Retorna verdadeiro se pelo menos uma linha foi afetada
     }
-
 
 }
 
