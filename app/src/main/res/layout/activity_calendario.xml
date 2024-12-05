@@ -10,15 +10,14 @@
 
     <!-- Ícone de alerta e mensagem centralizados -->
     <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
         android:background="#0B274E"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:gravity="center_vertical">
 
         <!-- Ícone de voltar -->
         <ImageButton
@@ -28,47 +27,44 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/voltar"
             android:src="@drawable/seta"
-            android:scaleType="fitCenter"/>
+            android:scaleType="centerInside"
+            android:padding="4dp" />
 
-        <!-- Título -->
+        <!-- Título centralizado -->
         <TextView
-            android:layout_width="289dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="Calendário de Embarques"
+            android:layout_weight="1"
+            android:text="@string/calend_rio_de_embarques"
+            android:textSize="24sp"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <!-- Calendário -->
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_centerInParent="true">
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:dateTextAppearance="?android:attr/textAppearanceSmall"
+        android:weekDayTextAppearance="?android:attr/textAppearanceSmallInverse" />
 
-        <ImageView
-            android:layout_width="400dp"
-            android:layout_height="500dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/calendario" />
-
-
-    </LinearLayout>
-    <!-- Botão "Novo" flutuante -->
-    <ImageButton
-        android:id="@+id/novoButton"
-        android:layout_width="wrap_content"
+    <!-- Texto para exibir a data selecionada -->
+    <TextView
+        android:id="@+id/embarqueInfoTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:background="@drawable/button_style"
-        android:src="@drawable/ic_novo"
-        android:contentDescription="@string/novo"
-        android:padding="20dp"
-        android:tint="#D29E7E" />
+        android:layout_below="@id/calendarView"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Selecione uma data para ver informações do embarque"
+        android:textColor="#000000"
+        android:textSize="16sp" />
 
 </RelativeLayout>
